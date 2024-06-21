@@ -28,6 +28,16 @@ class Server:
 
         return self.__dataset
 
+    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """retrieve a page of data"""
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
+        start, end = index_range(page, page_size)
+        data = self.dataset()
+        if start > len(data):
+            return []
+        return data[start:end]
+
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """retrieve info about page"""
         data = self.indexed_dataset()

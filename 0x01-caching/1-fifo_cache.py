@@ -12,7 +12,7 @@ class FIFOCache(BaseCaching):
 
     def put(self, key, item):
         """assign to dictionary"""
-        if key is None and item is None:
+        if key is None or item is None:
             return
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             first_key, _ = self.cache_data.popitem(last=False)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""FIFOCache"""
+"""task 1 FIFO Cache"""
 
 
 from collections import OrderedDict

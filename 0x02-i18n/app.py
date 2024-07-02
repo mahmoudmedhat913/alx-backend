@@ -81,12 +81,8 @@ def index() -> str:
     Return:
         html: homepage
     """
-    return render_template("7-index.html")
-
-# uncomment this line and comment the @babel.localeselector
-# you get this error:
-# AttributeError: 'Babel' object has no attribute 'localeselector'
-# babel.init_app(app, locale_selector=get_locale)
+    g.time = format_datetime()
+    return render_template("index.html")
 
 
 if __name__ == "__main__":

@@ -31,9 +31,9 @@ users = {
 
 def get_user() -> Union[Dict, None]:
     """retrieve a user based on user id"""
-    login_id = requests.args.get('login_as')
+    login_id = request.args.get('login_as', '')
     if login_id:
-        return users.get(int(login_id))
+        return users.get(int(login_id), None)
     return None
 
 
@@ -41,7 +41,8 @@ def get_user() -> Union[Dict, None]:
 def before_request() -> None:
     """perform some rroutine before each request"""
 
-    g.user = get_user()
+    user = get_user()
+    g.user = user
 
 
 @babel.localeselector
@@ -51,15 +52,21 @@ def get_locale() -> str:
     Return:
         str: best match
     """
-    locale = request.args.get('locale')
-    if locale in app.config['LANGUAGES']:
+    queries = request.query_string.decode('utf-8').split('&')
+    query_table = dict(map(
+        lambda x: (x if '=' in x else '{}='.format(x)).split('='),
+        queries,
+    ))
+    locale = query_table.get('locale', '')
+    if locale in app.config["LANGUAGES"]:
         return locale
-    if g.user and g.user['loacle'] in app.config["LANGUAGES"]:
-        return g.user['locale']
+    user_details = getattr(g, 'user', None)
+    if user_details and user_details['locale'] in app.config["LANGUAGES"]:
+        return user_details['locale']
     header_locale = request.headers.get('locale', '')
     if header_locale in app.config["LANGUAGES"]:
         return header_locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 @babel.timezoneselector

@@ -89,7 +89,7 @@ def index() -> str:
         html: homepage
     """
     g.time = format_datetime()
-    return render_template("index.html")
+    return render_template('index.html')
 
 
 if __name__ == "__main__":

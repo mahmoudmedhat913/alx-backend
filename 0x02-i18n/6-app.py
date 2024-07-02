@@ -68,7 +68,7 @@ def index() -> str:
     Return:
         html: homepage
     """
-    return render_template("4-index.html")
+    return render_template("6-index.html")
 
 # uncomment this line and comment the @babel.localeselector
 # you get this error:

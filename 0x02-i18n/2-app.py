@@ -21,7 +21,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get-locale() -> str:
+def get_locale() -> str:
     """retrieve the loacle for web page
 
     Return:

@@ -82,7 +82,7 @@ def get_timezone() -> str:
 
 
 @app.route('/')
-def index() -> str:
+def get_index() -> str:
     """default route
 
     Return:

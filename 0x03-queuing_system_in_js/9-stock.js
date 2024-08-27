@@ -43,21 +43,21 @@ const client = createClient();
 const PORT = 1245;
 
 /**
- * Modifies the reversed stock for a given item.
- * @param {number} itemId - the id of the item.
- * @param {number} stock - the stock of the item.
+ * Modifies the reserved stock for a given item.
+ * @param {number} itemId - The id of the item.
+ * @param {number} stock - The stock of the item.
  */
-const reverseStockById = async (itemId, stock) => {
-  return promisify(client.SET).bind(client)(`item.${item}`, stock);
+const resrveStockById = async (itemId, stock) => {
+  return promisify(client.SET).bind(client)(`item.${itemId}`, stock);
 };
 
 /**
- * Retrieves the reversed stock for a given item.
- * @param {number} itemId - the id of the item.
+ * Retrieves the reserved stock for a given item.
+ * @param {number} itemId - The id of the item.
  * @returns {Promise<String>}
  */
-const getCurrentReversedStockById = async (itemId) => {
-  return promisify(client.GET).bind(client)(`item.${item}`);
+const getCurrentReservedStockById = async (itemId) => {
+  return promisify(client.GET).bind(client)(`item.${itemId}`);
 };
 
 app.get('/list_products', (_, res) => {
@@ -83,7 +83,7 @@ app.get('/list_products/:itemId(\\d+)', (req, res) => {
 app.get('/reserve_product/:itemId', (req, res) => {
   const itemId = Number.parseInt(req.params.itemId);
   const productItem = getItemById(Number.parseInt(itemId));
-        
+
   if (!productItem) {
     res.json({ status: 'Product not found' });
     return;

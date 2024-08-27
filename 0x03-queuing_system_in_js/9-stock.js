@@ -47,7 +47,7 @@ const PORT = 1245;
  * @param {number} itemId - The id of the item.
  * @param {number} stock - The stock of the item.
  */
-const resrveStockById = async (itemId, stock) => {
+const reserveStockById = async (itemId, stock) => {
   return promisify(client.SET).bind(client)(`item.${itemId}`, stock);
 };
 

@@ -29,10 +29,10 @@ const getCurrentAvailableSeats = async () => {
 
 app.get('/available_seats', (_, res) => {
   getCurrentAvailableSeats()
-  // .then(result => Number.parseInt(result || 0))
-  .then((numberOfAvailableSeats) => {
-    res.json({ numberOfAvailableSeats })
-  });
+    // .then(result => Number.parseInt(result || 0))
+    .then((numberOfAvailableSeats) => {
+      res.json({ numberOfAvailableSeats })
+    });
 });
 
 app.get('/reserve_seat', (_req, res) => {
@@ -51,7 +51,7 @@ app.get('/reserve_seat', (_req, res) => {
         err.message || err.toString(),
       );
     });
-    job.on('complete', (err) => {
+    job.on('complete', () => {
       console.log(
         'Seat reservation job',
         job.id,
@@ -88,7 +88,7 @@ const resetAvailableSeats = async (initialSeatsCount) => {
 };
 
 app.listen(PORT, () => {
-  resetAvailableSeats(process.env.INITIAL_SEATS_COUNT || INITIAL_SEATS_COUNT
+  resetAvailableSeats(process.env.INITIAL_SEATS_COUNT || INITIAL_SEATS_COUNT)
     .then(() => {
       reservationEnabled = true;
       console.log(`API available on localhost port ${PORT}`);
